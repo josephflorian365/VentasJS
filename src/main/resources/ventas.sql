@@ -3,7 +3,7 @@ USE `ventas`;
 -- tables
 -- Table: CATEGORIA
 CREATE TABLE CATEGORIA (
-                           IDCAT int NOT NULL COMMENT 'Identificador de categoria',
+                           IDCAT int NOT NULL AUTO_INCREMENT COMMENT COMMENT 'Identificador de categoria',
                            NOMCAT varchar(50) NOT NULL COMMENT 'Nombre de categoria',
                            ESTCAT varchar(10) NOT NULL COMMENT 'Estado de registro',
                            CONSTRAINT CATEGORIA_pk PRIMARY KEY (IDCAT)
