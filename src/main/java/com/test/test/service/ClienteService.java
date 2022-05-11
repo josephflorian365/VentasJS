@@ -4,7 +4,9 @@ import com.test.test.model.Cliente;
 import com.test.test.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -48,6 +50,14 @@ public class ClienteService {
 
     public List<Cliente> obtenerTodos() {
         return clienteRepository.findAll();
+    }
+
+    public Page<Cliente> obtenerClientes(int numeroPagina, int tamanioPagina, String campoOrden, String sentidoOrden) {
+
+        Pageable pageable = PageRequest.of(numeroPagina - 1, tamanioPagina,
+                sentidoOrden.equals("asc") ? Sort.by(campoOrden).ascending() : Sort.by(campoOrden).descending());
+
+        return clienteRepository.findAll(pageable);
     }
 
 }
