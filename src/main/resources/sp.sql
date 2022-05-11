@@ -29,3 +29,12 @@ WHERE IDCAT=id;
 END @@
 DELIMITER ;
 
+DELIMITER @@
+CREATE PROCEDURE deleteCategoria
+(
+  id int
+)
+BEGIN
+delete from categoria where IDCAT=id;
+END @@
+DELIMITER ;
