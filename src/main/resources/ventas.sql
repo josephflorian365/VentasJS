@@ -1,5 +1,5 @@
---CREATE SCHEMA `ventas` DEFAULT CHARACTER SET utf8 ;
---USE `ventas`;
+CREATE SCHEMA `ventas` DEFAULT CHARACTER SET utf8 ;
+USE `ventas`;
 -- tables
 -- Table: CATEGORIA
 CREATE TABLE CATEGORIA (
