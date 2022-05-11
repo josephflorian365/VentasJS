@@ -38,3 +38,12 @@ BEGIN
 delete from categoria where IDCAT=id;
 END @@
 DELIMITER ;
+
+DELIMITER @@
+DROP PROCEDURE getMostrarUsuario @@
+CREATE PROCEDURE curso.getMostrarUsuario
+()
+BEGIN
+SELECT *FROM Usuarios
+END @@
+DELIMITER ;
