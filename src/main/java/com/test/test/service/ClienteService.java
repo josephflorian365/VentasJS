@@ -1,22 +1,27 @@
 package com.test.test.service;
 
-import com.test.test.exception.UserNotFoundException;
 import com.test.test.model.Cliente;
-import com.test.test.model.Estado;
 import com.test.test.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
-@Transactional
 public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
     public Cliente crear(Cliente cliente) {
+        cliente.setEstado("ACTIVO");
+        cliente.setFechaRegistro(LocalDate.now());
+        cliente.setFechaModificacion(LocalDateTime.now());
         return clienteRepository.save(cliente);
     }
 
@@ -29,22 +34,17 @@ public class ClienteService {
     }
 
     public Cliente cambiarEstado(Cliente cliente) {
-        cliente.setEstado(Estado.INACTIVO);
+        cliente.setEstado("INACTIVO");
         return clienteRepository.save(cliente);
     }
 
     public Cliente obtenerPorId(Long id) {
-        return clienteRepository
-                .findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User by id" + id + "was not found "));
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User by id"+id+"was not found "));
     }
 
-    public void obtenerTodos(Cliente cliente) {
-
-    }
-
-    public void listaPaginada(Cliente cliente) {
-
+    public List<Cliente> obtenerTodos() {
+        return clienteRepository.findAll();
     }
 
 }

@@ -10,15 +10,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Cliente implements Serializable {
+@Table(name = "cliente")
+public class Cliente{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDCLI")
     private Long id;
     @Column(name = "NOMCLI")
@@ -26,12 +26,9 @@ public class Cliente implements Serializable {
     @Column(name = "APECLI")
     private String apellido;
     @Column(name = "ESTCLI")
-    private Estado estado;
-
-    @CreationTimestamp
-    @Column(name = "FECREGCLI",updatable = false)
-    private Timestamp fechaRegistro;
-    @UpdateTimestamp
+    private String estado;
+    @Column(name = "FECREGCLI")
+    private LocalDate fechaRegistro;
     @Column(name = "FECHMODCLI")
-    private Timestamp fechaModificacion;
+    private LocalDateTime fechaModificacion;
 }
