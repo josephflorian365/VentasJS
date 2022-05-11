@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,9 +34,11 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
-    public Cliente cambiarEstado(Cliente cliente) {
-        cliente.setEstado("INACTIVO");
-        return clienteRepository.save(cliente);
+    public Cliente cambiarEstado(Long id) {
+        Cliente clienteFromDb = clienteRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        clienteFromDb.setEstado("INACTIVO");
+        return clienteRepository.save(clienteFromDb);
     }
 
     public Cliente obtenerPorId(Long id) {

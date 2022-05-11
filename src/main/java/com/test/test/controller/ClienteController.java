@@ -35,7 +35,7 @@ public class ClienteController {
         return new ResponseEntity<>(nuevoCliente,HttpStatus.CREATED);
     }
 
-    @PutMapping("/clientes/update")
+    @PutMapping("/clientes/actualizar")
     public ResponseEntity<Cliente> actualizarCliente(@RequestBody Cliente cliente){
         Cliente actualizadoCliente = clienteService.actualizar(cliente);
         return new ResponseEntity<>(actualizadoCliente,HttpStatus.OK);
@@ -45,6 +45,12 @@ public class ClienteController {
     public ResponseEntity<Cliente> eliminarCliente(@PathVariable("id") Long id){
         clienteService.eliminar(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/clientes/actualizarEstado/{id}")
+    public ResponseEntity<Cliente> actualizarEstadoCliente(@PathVariable("id") Long id){
+        Cliente actualizadoCliente = clienteService.cambiarEstado(id);
+        return new ResponseEntity<>(actualizadoCliente,HttpStatus.OK);
     }
 
 }
