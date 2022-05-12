@@ -20,14 +20,14 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
-    //obtener todas las categorias
+    //obtener todas las productos
     @GetMapping("")
     public ResponseEntity<List<Producto>> obtenerProductos(){
         List<Producto> productos = productoService.obtenerTodos();
         return new ResponseEntity<>(productos, HttpStatus.OK);
     }
 
-    //obtener categorias por id
+    //obtener producto por id
     @GetMapping("/encontrar/{id}")
     public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable("id") Long id){
         Producto producto = productoService.obtenerPorId(id);
@@ -41,28 +41,28 @@ public class ProductoController {
         return new ResponseEntity<>(nuevoProducto,HttpStatus.CREATED);
     }
 
-    //actualización de categoria
+    //actualización de producto
     @PutMapping("/actualizar")
     public ResponseEntity<Producto> actualizarProducto(@RequestBody Producto producto){
         Producto actualizadoProducto = productoService.actualizar(producto);
         return new ResponseEntity<>(actualizadoProducto,HttpStatus.OK);
     }
 
-    //eliminación de categoria
+    //eliminación de producto
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Producto> eliminarProducto(@PathVariable("id") Long id){
         productoService.eliminar(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //eliminación lógica de categoria
+    //eliminación lógica de producto
     @PutMapping("/actualizarEstado/{id}")
     public ResponseEntity<Producto> actualizarEstadoProducto(@PathVariable("id") Long id){
         Producto actualizadoProducto = productoService.cambiarEstado(id);
         return new ResponseEntity<>(actualizadoProducto,HttpStatus.OK);
     }
 
-    //lista paginada de categoria
+    //lista paginada de productos
     @GetMapping("/paginado")
     public ResponseEntity<Page<Producto>> paginadoProductos(Pageable pageable){
         Page<Producto> productos = productoService.obtenerClientes(1, 5, "nombre", "desc");
