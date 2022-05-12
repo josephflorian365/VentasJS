@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Lista de Productos</h2>
+    <button class="btn btn-primary mb-3" [routerLink]="['formulario']">Crear Producto</button>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productos">
+            <th scope="row">{{producto.id}}</th>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.precio | currency: "S/."}}</td>
+            <td>{{producto.categoria.nombre}}</td>
+            <td>
+                <button class="btn btn-info me-2" [routerLink]="['formulario',producto.id]">Editar</button>
+                <button class="btn btn-danger" (click)="eliminarProducto(producto.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
