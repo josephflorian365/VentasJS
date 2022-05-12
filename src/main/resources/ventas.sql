@@ -44,7 +44,7 @@ CREATE TABLE FACTURA_DETALLE (
 CREATE TABLE PRODUCTO (
                           IDPRO int NOT NULL AUTO_INCREMENT COMMENT 'Identificador de producto',
                           NOMPRO varchar(50) NOT NULL COMMENT 'Nombre del producto',
-                          PREPRO decimal(3,2) NOT NULL COMMENT 'Precio de producto',
+                          PREPRO float NOT NULL COMMENT 'Precio de producto',
                           FECPRO datetime NOT NULL COMMENT 'Fecha de registro del producto',
                           IDCAT int NOT NULL COMMENT 'Foreign key de categoria',
                           ESTPRO varchar(50) NOT NULL COMMENT 'Estado del producto',

@@ -1,6 +1,6 @@
 package com.test.test.service;
 
-import com.test.test.model.Cliente;
+import com.test.test.model.Categoria;
 import com.test.test.model.Producto;
 import com.test.test.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
