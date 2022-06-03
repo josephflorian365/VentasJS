@@ -5,13 +5,19 @@ import com.test.test.model.Producto;
 import com.test.test.service.CategoriaService;
 import com.test.test.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/productos")
@@ -36,9 +42,26 @@ public class ProductoController {
 
     //creación de una nueva producto
     @PostMapping("/crear")
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto){
-        Producto nuevoProducto = productoService.crear(producto);
-        return new ResponseEntity<>(nuevoProducto,HttpStatus.CREATED);
+    @ResponseBody
+    public ResponseEntity<Object> crearProducto(@RequestBody @Valid Producto producto
+            , BindingResult result){
+        if (result.hasErrors()) {
+            List<String> errors = result.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        } else {
+            List<Producto> productos = productoService.obtenerTodos();
+            if (productos.stream().anyMatch(it -> producto.getNombre().equals(it.getNombre()))) {
+                return new ResponseEntity<>(
+                        Collections.singletonList("Nombre ya existe!"),
+                        HttpStatus.CONFLICT);
+            } else {
+                Producto nuevoProducto = productoService.crear(producto);
+                return new ResponseEntity<>(nuevoProducto,HttpStatus.CREATED);
+            }
+        }
+
     }
 
     //actualización de producto
